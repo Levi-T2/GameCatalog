@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\obj\\Debug\\net8.0\\compressed\\bkva122brw.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\obj\\Debug\\net8.0\\scopedcss\\bundle\\GameCatalog.client.styles.css",
+      "PackagePath": "staticwebassets\\GameCatalog.client.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\Levi\\codeworks\\After_Codeworks\\BlazorProjects\\GameCatalog\\GameCatalog.client\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GameCatalog.client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.GameCatalog.client.props",
+      "PackagePath": "build\\GameCatalog.client.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.GameCatalog.client.props",
+      "PackagePath": "buildMultiTargeting\\GameCatalog.client.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.GameCatalog.client.props",
+      "PackagePath": "buildTransitive\\GameCatalog.client.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
