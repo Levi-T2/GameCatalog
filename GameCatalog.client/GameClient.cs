@@ -30,4 +30,15 @@ public static class GameClient // Static insures that when this is using in our 
             ReleaseDate = new DateTime(2008, 9, 04)
         },
     };
+
+    public static Game[] GetGames()
+    {
+        return games.ToArray();
+    }
+
+    public static void AddGame(Game game)
+    {
+        game.Id = games.Max(game => game.Id) + 1;
+        games.Add(game);
+    }
 }

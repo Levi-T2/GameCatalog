@@ -1,0 +1,48 @@
+﻿@page "/game"
+@using Models;
+@inject NavigationManager NavigationManager
+
+<PageTitle>New Game</PageTitle>
+<h1 class="text-center mb-3">Game Catalog</h1>
+<h3 class="text-center mb-2">New Game</h3>
+
+
+<section class="row justify-content-center">
+    <div class="col-12 col-md-4">
+        <EditForm Model="@game" OnSubmit="HandleSubmit">
+            <div class="py-2">
+                <label for="name" class="form-label">Name</label>
+                <InputText id="name" @bind-Value="game.Name" class="form-control" />
+            </div>
+            <div class="py-2">
+                <label for="genre" class="form-label">Genre</label>
+                <InputText id="genre" @bind-Value="game.Genre" class="form-control" />
+            </div>
+            <div class="py-2">
+                <label for="price" class="form-label">Price</label>
+                <InputNumber id="price" @bind-Value="game.Price" class="form-control" />
+            </div>
+            <div class="py-2">
+                <label for="releaseDate" class="form-label">Release Date</label>
+                <InputDate id="releaseDate" @bind-Value="game.ReleaseDate" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-success rounded-pill">Add Game</button>
+        </EditForm>
+    </div>
+</section>
+
+
+@code {
+    private Game game = new()
+        {
+            Name = string.Empty,
+            Genre = string.Empty,
+            ReleaseDate = DateTime.UtcNow
+        };
+
+    private void HandleSubmit()
+    {
+        GameClient.AddGame(game);
+        NavigationManager.NavigateTo("/");
+    }
+}
