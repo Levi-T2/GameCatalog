@@ -1,42 +1,52 @@
 ﻿@page "/"
 @using Models;
+@inject NavigationManager NavigationManager
 
 <PageTitle>Game Catalog</PageTitle>
 
-<h1 class="text-center mb-2">Game Catalog</h1>
-
-@if (games is null)
-{
-    <p>
-        <em>Loading...</em>
-    </p>
-}
-else
-{
-    <table class="table table-hover">
-        <thead>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Genre</th>
-            <th scope="col">Price</th>
-            <th scope="col">Release Date</th>
-            <th scope="col"></th>
-        </thead>
-        <tbody>
-            @foreach (var game in games)
+<div class="container-fluid">
+    <section class="row">
+        <div class="col-12 text-center mb-2">
+            <h1 class="">Game Catalog</h1>
+        </div>
+        <div class="col-12 text-center">
+            <button class="btn btn-primary rounded-pill" type="button" @onclick="CreateGame">Add Game</button>
+        </div>
+        <div class="col-12">
+            @if (games is null)
             {
-                <tr>
-                    <td>@game.Id</td>
-                    <td>@game.Name</td>
-                    <td>@game.Genre</td>
-                    <td>@game.Price</td>
-                    <td>@game.ReleaseDate.ToString("MM/dd/yyyy")</td>
-                </tr>
+                <p>
+                    <em>Loading...</em>
+                </p>
             }
-        </tbody>
-    </table>
-}
-
+            else
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col"></th>
+                    </thead>
+                    <tbody>
+                        @foreach (var game in games)
+                        {
+                            <tr>
+                                <td>@game.Id</td>
+                                <td>@game.Name</td>
+                                <td>@game.Genre</td>
+                                <td>@game.Price</td>
+                                <td>@game.ReleaseDate.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </section>
+</div>
 
 @code {
 
@@ -44,6 +54,11 @@ else
     protected override void OnInitialized() // This is similiar to onMounted lifecyle hook used in Vue.
     {
         games = GameClient.GetGames();
+    }
+
+    private void CreateGame() // The navigation manager is Blazors own way of handling basic router things, like .push.
+    {
+        NavigationManager.NavigateTo("/game");
     }
 
 }

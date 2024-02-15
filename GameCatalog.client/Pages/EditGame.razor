@@ -1,48 +1,112 @@
 ﻿@page "/game"
+@page "/game/{gameId:int}"
 @using Models;
 @inject NavigationManager NavigationManager
 
-<PageTitle>New Game</PageTitle>
+<PageTitle>@title</PageTitle>
 <h1 class="text-center mb-3">Game Catalog</h1>
-<h3 class="text-center mb-2">New Game</h3>
+<h3 class="text-center mb-2">@title</h3>
 
-
-<section class="row justify-content-center">
-    <div class="col-12 col-md-4">
-        <EditForm Model="@game" OnSubmit="HandleSubmit">
-            <div class="py-2">
-                <label for="name" class="form-label">Name</label>
-                <InputText id="name" @bind-Value="game.Name" class="form-control" />
-            </div>
-            <div class="py-2">
-                <label for="genre" class="form-label">Genre</label>
-                <InputText id="genre" @bind-Value="game.Genre" class="form-control" />
-            </div>
-            <div class="py-2">
-                <label for="price" class="form-label">Price</label>
-                <InputNumber id="price" @bind-Value="game.Price" class="form-control" />
-            </div>
-            <div class="py-2">
-                <label for="releaseDate" class="form-label">Release Date</label>
-                <InputDate id="releaseDate" @bind-Value="game.ReleaseDate" class="form-control" />
-            </div>
-            <button type="submit" class="btn btn-success rounded-pill">Add Game</button>
-        </EditForm>
-    </div>
-</section>
-
+@if (game is null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+} 
+else
+{
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-4">
+            <EditForm Model="@game" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="py-2">
+                    <label for="name" class="form-label">Name</label>
+                    <InputText id="name" @bind-Value="game.Name" class="form-control" />
+                </div>
+                <div class="py-2">
+                    <label for="genre" class="form-label">Genre</label>
+                    <InputSelect id="genre" @bind-Value="game.Genre" class="form-select">
+                        <option value="">Select Genre</option>
+                        <option value="Fighting">Fighting</option>
+                        <option value="Sandbox">Sandbox</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Racing">Racing</option>
+                        <option value="Roleplaying">Roleplaying</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Simulation">Simulation</option>
+                    </InputSelect>
+                </div>
+                <div class="py-2">
+                    <label for="price" class="form-label">Price</label>
+                    <InputNumber id="price" @bind-Value="game.Price" class="form-control" />
+                </div>
+                <div class="py-2">
+                    <label for="releaseDate" class="form-label">Release Date</label>
+                    <InputDate id="releaseDate" @bind-Value="game.ReleaseDate" class="form-control" />
+                </div>
+                <div class="mt-2 text-center d-flex justify-content-between">
+                    <button @onclick="Cancel" type="button" class="btn btn-danger rounded-pill">Cancel</button>
+                    <button type="submit" class="btn btn-success rounded-pill">@btnText</button>
+                </div>
+            </EditForm>
+        </div>
+    </section>
+}
 
 @code {
-    private Game game = new()
+
+    [Parameter] // If your page takes in parameters, it must be declared using the parameter attribute.
+    public int? gameId { get; set; }
+    private Game? game;
+    private string title = string.Empty;
+    private string btnText = string.Empty;
+    protected override void OnParametersSet() // This funcitions like on onMounted, but only runs if parameters are passed through.
+    {
+        if (gameId is not null)
         {
-            Name = string.Empty,
-            Genre = string.Empty,
-            ReleaseDate = DateTime.UtcNow
-        };
+            Game foundGame = GameClient.GetGameWithId(gameId.Value);
+            game = new()
+            {
+                Id = foundGame.Id,
+                Name = foundGame.Name,
+                Genre = foundGame.Genre,
+                Price = foundGame.Price,
+                ReleaseDate = foundGame.ReleaseDate
+            };
+
+            title = $"Edit {foundGame.Name}";
+            btnText = "Edit Game";
+        }
+        else
+        {
+            game = new()
+            {
+                Name = string.Empty,
+                Genre = string.Empty,
+                ReleaseDate = DateTime.UtcNow
+            };
+
+            title = "New Game";
+            btnText = "Add Game";
+        }
+    }
 
     private void HandleSubmit()
     {
-        GameClient.AddGame(game);
+        if (game!.Id == 0) // Exclamtion mark added as with current layout this can never be null.
+        {
+            GameClient.AddGame(game);
+        }
+        else
+        {
+            GameClient.UpdateGame(game);
+        }
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void Cancel()
+    {
         NavigationManager.NavigateTo("/");
     }
 }

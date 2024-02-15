@@ -41,4 +41,19 @@ public static class GameClient // Static insures that when this is using in our 
         game.Id = games.Max(game => game.Id) + 1;
         games.Add(game);
     }
+
+    public static Game GetGameWithId(int gameId)
+    {
+        return games.Find(game => game.Id == gameId) ?? throw new Exception($"Couldn't find game with the supplied Id: {gameId}");
+    }
+
+    public static void UpdateGame(Game editedGame)
+    {
+        Game fetchedGame = GetGameWithId(editedGame.Id);
+
+        fetchedGame.Name = editedGame.Name;
+        fetchedGame.Genre = editedGame.Genre;
+        fetchedGame.Price = editedGame.Price;
+        fetchedGame.ReleaseDate = editedGame.ReleaseDate;
+    }
 }
