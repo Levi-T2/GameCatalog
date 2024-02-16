@@ -21,6 +21,9 @@
             }
             else
             {
+                <DeleteGame Game="@currentGame" OnClose="@OnDeleteModalClose">
+                </DeleteGame>
+
                 <table class="table table-hover">
                     <thead>
                         <th scope="col">Id</th>
@@ -39,6 +42,11 @@
                                 <td>@game.Genre</td>
                                 <td>@game.Price</td>
                                 <td>@game.ReleaseDate.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    <button class="btn btn-primary" @onclick="(() => EditGame(game.Id))">Edit</button>
+                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteGame"
+                                        @onclick="(() => currentGame = game)">Delete</button>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -51,6 +59,7 @@
 @code {
 
     private Game[]? games;
+    private Game? currentGame;
     protected override void OnInitialized() // This is similiar to onMounted lifecyle hook used in Vue.
     {
         games = GameClient.GetGames();
@@ -61,4 +70,17 @@
         NavigationManager.NavigateTo("/game");
     }
 
+    private void EditGame(int gameId)
+    {
+        NavigationManager.NavigateTo($"/game/{gameId}");
+    }
+
+    private void OnDeleteModalClose(bool accepted)
+    {
+        if (accepted)
+        {
+            GameClient.DeleteGame(currentGame!.Id);
+            games = GameClient.GetGames(); // Reinvoking our game getter allows the page to be reactive.
+        }
+    }
 }

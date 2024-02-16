@@ -56,4 +56,10 @@ public static class GameClient // Static insures that when this is using in our 
         fetchedGame.Price = editedGame.Price;
         fetchedGame.ReleaseDate = editedGame.ReleaseDate;
     }
+
+    public static void DeleteGame(int gameId)
+    {
+        Game game = GetGameWithId(gameId);
+        games.Remove(game);
+    }
 }
